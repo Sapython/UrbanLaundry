@@ -1,0 +1,24 @@
+<div class="ion-page" id="main-content">
+  <app-header title="Notification"></app-header>
+  <ion-content>
+    <div class="p-3 t-grey Lato500 fs-14">You have <span class="t-green Lato600">2 Notifications</span> Today</div>
+    <div class="d-flex justify-content-end mx-3">
+      <ion-button fill="outline" color="medium" routerLink="/bookings" size="small" style="text-transform:none" class="Lato500">
+      <!-- <ion-icon name="download-outline"></ion-icon> -->
+      <span class="Lato500 fs-14">Clear Notification</span>  
+      </ion-button>
+    </div>
+    <div class="px-3 fs-16 Lato600">Today</div>
+    <div class="p-3 m-3 borderGrey BR10" *ngFor="let notification of this.dataBase.notifications">
+      <div class="badge" *ngIf="notification.viewed == false"></div>
+      <div class="Lato500 fs-16 t-black">{{notification?.title | titlecase}}</div>
+      <div class="Lato500 fs-13 t-grey mt-2">{{notification?.body}}</div>
+      <div class="d-flex justify-content-end align-items-center">
+        <div><ion-icon name="time-outline"></ion-icon></div>
+        <div class="Lato400 ms-2 fs-14">{{notification.date.toDate() | date}}</div>
+      </div>
+
+    </div>
+    
+  </ion-content>
+</div>

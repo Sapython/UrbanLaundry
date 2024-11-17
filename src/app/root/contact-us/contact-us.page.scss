@@ -1,0 +1,18 @@
+ngx-dropzone{
+    height: 43px !important;
+    border: 1px dashed #CBCBCB;
+    border-radius: 8px;
+    margin-top: 20px;
+}
+
+ngx-dropzone-image-preview{
+    width: 70px !important;
+    margin: 0 !important;
+    margin-right: 10px !important;
+    height: 90px !important;
+    min-height: 90px !important;
+}
+
+ion-button{
+    --color: white;
+}

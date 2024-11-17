@@ -1,0 +1,19 @@
+ion-tab-button {
+    font-size: 12px;
+    font-family: 'Lato', sans-serif;
+    --background-focused: #579540;
+    --color-selected: #579540;
+    --padding-end: 0px;
+    --padding-start: 10px;
+    --padding-bottom: 0px;
+    --margin-left: 0px;
+    --margin-right: 0px;
+    max-width: 100px;
+}
+
+ion-tabs {
+    background: #FFFFFF;
+    box-shadow: 0px -6px 12px 1px rgba(22, 22, 22, 0.15);
+    height: 50px;
+    top: auto !important;
+}

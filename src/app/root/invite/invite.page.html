@@ -1,0 +1,23 @@
+<div class="ion-page" id="main-content">
+  <app-header title="Share"></app-header>
+<ion-content>
+  <div class=" w-100 d-flex justify-content-between align-items-center flex-column">
+    <div class="img-outer my-5 py-5">
+      <img src="assets/images/invite.png" alt="">
+    </div>
+    <div class="d-flex justify-content-between align-items-center">
+      <ion-item class="borderGrey BR10">
+        <ion-input value="http://urbanlaundry.web.app"></ion-input>
+        
+      </ion-item>
+      <ion-button fill="outline" color="medium" style="height: 45px;" >
+        <ion-icon name="copy-outline"></ion-icon>
+      </ion-button>
+    </div>
+    <div class="fixed bottom-0 mb-4 d-flex justify-content-center w-100">
+      <ion-button style="text-transform:none" color="success" (click)="share()">Send Invite</ion-button>
+    </div>
+  </div>
+  
+</ion-content>
+</div>

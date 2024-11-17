@@ -1,0 +1,7 @@
+{
+  "name": "UrbanLaundry",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

@@ -1,0 +1,40 @@
+<ion-header *ngIf="path!='/root/home'">
+  <ion-toolbar>
+    <ion-buttons slot="start" class="back"> 
+        <ion-back-button defaultHref="root/home"><ion-icon name="chevron-back-outline"></ion-icon></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{title}}</ion-title>
+    <ion-buttons slot="end">
+      <ion-buttons>
+        <!-- <ion-button routerLink="../notifications" (click)="notification()"><ion-icon name="notifications-outline"></ion-icon></ion-button> -->
+        <ion-button>
+          <div class="avatar" (click)="profile()">
+            <img *ngIf="this.dataProvider.user" referrerPolicy="no-referrer" [src]="this.dataProvider.user?.photoURL" />
+          </div>
+        </ion-button>
+      </ion-buttons>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-header *ngIf="path=='/root/home'">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button><img src="assets/icon/headerSidebar.png" alt=""></ion-menu-button>
+    </ion-buttons>
+    <ion-title class="ulTitle">
+      <div class="title">
+        <img src="assets/logo4.jpg" height="60px" alt="">
+        Urban Laundry
+      </div>
+    </ion-title>
+    <ion-buttons slot="end">
+      <!-- <ion-button routerLink="../notifications"  (click)="notification()"><ion-icon name="notifications-outline"></ion-icon></ion-button> -->
+      <ion-button routerLink="../profile" (click)="profile()">
+        <div class="avatar">
+          <img *ngIf="this.dataProvider.user"  [src]="this.dataProvider.user?.photoURL" />
+        </div>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>

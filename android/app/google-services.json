@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "461704917744",
+    "project_id": "urbanlaundryadmin",
+    "storage_bucket": "urbanlaundryadmin.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:461704917744:android:a3cabb83c4b56b1f528835",
+        "android_client_info": {
+          "package_name": "com.shreeva.urbanlaundry"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "461704917744-okgeube23vb6rpg6puv9ah3arfa6uphp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "REPLACEMENT_STRING"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "461704917744-okgeube23vb6rpg6puv9ah3arfa6uphp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

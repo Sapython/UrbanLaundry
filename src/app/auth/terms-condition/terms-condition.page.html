@@ -1,0 +1,21 @@
+<div class="ion-page" id="main-content">
+  <app-header title="Term & Conditions"></app-header>
+<ion-content>
+<div class="Lato400 fs-14 t-grey px-3 mt-4">
+  {{policyData?.privacyPolicy}}
+</div>
+<div class="fs-15 Lato600 my-4 px-3">Acceptance Of Term</div>
+<div class="Lato400 fs-14 t-grey px-3">{{policyData?.termsAndConditions}}</div>
+<div class="fixed bottom-0 w-100 solidBottom">
+  <ion-item>
+    <ion-checkbox class="no-margin" slot="start" (click)="triggerCheckBox()"></ion-checkbox>
+    <ion-label class="ms-2">I agree with terms & Conditions</ion-label>
+  </ion-item>
+  <div class="d-flex justify-content-center mb-4 align-items-center w-100">
+    <ion-button style="text-transform:none" expand="block" fill="outline" color="success" routerLink="/cancel-request">Decline</ion-button>
+    <ion-button style="text-transform:none" expand="block" color="success" [disabled]="checked" (click)="signUp()">Accept</ion-button>
+  </div>
+</div>
+
+</ion-content>
+</div>

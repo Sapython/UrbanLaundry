@@ -1,0 +1,51 @@
+<ion-content class="">
+  
+  <ion-grid class="container">
+    <ion-row class="uk-animation-fade" style="margin: 0;">
+      <ion-col>
+        <ion-img src="assets/img/main.png" > </ion-img>
+      </ion-col>
+    </ion-row>
+   <div class="Lato600 fs-22 text-center my-3">Login</div>
+
+    <form [formGroup]="loginForm" (ngSubmit)="loginWithEmail()">
+      <ion-label>Enter Login Details</ion-label>
+      <div class="input-field" style="margin-top: 16px;">
+        <ion-icon name="at-outline"></ion-icon>
+        <ion-item fill="none" color="primary-contrast" style="margin-bottom: 1em;">
+          <ion-input type="email" placeholder="Enter your Email" formControlName="email"></ion-input>
+        </ion-item>
+      </div>
+
+      <div class="input-field">
+        <ion-icon name="lock-closed-outline"></ion-icon>
+        <ion-item fill="none" color="primary-contrast">
+          <ion-input type="password" placeholder="Enter your Password" formControlName="password"></ion-input>
+        </ion-item>
+      </div>
+
+      <ion-text routerLink="/forgotPassword">Forgot Password?</ion-text>
+
+      <ion-button class="login-button ion-margin" color="primary-contrast" expand="block"
+        type="submit">Login</ion-button>
+    </form>
+    
+
+    <!-- <ion-row class="uk-animation-fade">
+      <ion-col>
+        <hr class="line" />
+        <ion-text class="or">OR</ion-text>
+      </ion-col>
+    </ion-row>
+
+    <ion-button color="primary-contrast" class="google uk-animation-slide-bottom-medium" type="submit"
+      (click)="auth.signUpWithGoogle()">
+      <img src="assets/img/google-logo.png" alt="">
+      <p>Sign up with Google</p>
+    </ion-button>
+    <hr> -->
+    <hr>
+    <div class="Lato400 text-center">New to Urban Laundry?<span class="t-green ms-2" routerLink="../signup">Sign Up</span></div>
+  
+  </ion-grid>
+</ion-content>

@@ -1,0 +1,80 @@
+<div class="ion-page" id="main-content">
+  <app-header title="Profile"></app-header>
+  <ion-content>
+    <app-loading *ngIf="!this.dataProvider.user"></app-loading>
+    <div
+      class="d-flex align-items-center justify-content-between flex-column w-100"
+      *ngIf="this.dataProvider.user"
+    >
+      <div class="Lato500 fs-16 t-green py-3">
+        Hello, {{this.dataProvider.user.displayName}}!
+      </div>
+      <div class="img-outer my-3">
+        <img [src]="this.dataProvider.user.photoURL" alt="" />
+        <div class="icon" *ngIf="editMode">
+          <input hidden type="file" (change)="file = $event;this.change = true" #filePick />
+          <ion-icon name="camera-sharp" (click)="filePick.click()"></ion-icon>
+        </div>
+      </div>
+      <form
+        class="w-100 px-3 mt-2"
+        [formGroup]="profileForm"
+        (ngSubmit)="profile()"
+      >
+        <ion-item class="borderGrey BR10 mb-3">
+          <ion-label [position]="editMode ? 'floating' : 'fixed'">Full Name</ion-label>
+          <ion-label *ngIf="!editMode">{{this.dataProvider.user.displayName}}</ion-label>
+          <ion-input
+            *ngIf="editMode"
+            placeholder="Enter text"
+            type="text"
+            formControlName="displayName"
+          ></ion-input>
+        </ion-item>
+        <ion-item class="borderGrey BR10 mb-3">
+          <ion-label [position]="editMode ? 'floating' : 'fixed'">Phone Number</ion-label>
+          <ion-label *ngIf="!editMode">{{this.dataProvider.user.phone}}</ion-label>
+          <ion-input *ngIf="editMode"
+            placeholder="Enter Phone Number"
+            inputmode="numeric"
+            formControlName="phone"
+          ></ion-input>
+        </ion-item>
+
+        <ion-item class="borderGrey BR10 mb-3">
+          <ion-label [position]="editMode ? 'floating' : 'fixed'">Birth Date</ion-label>
+          <ion-label *ngIf="!editMode">{{this.dataProvider.user.dateOfBirth?.toDate() | date}}</ion-label>
+          <ion-input *ngIf="editMode"
+            placeholder="Enter text"
+            type="date"
+            formControlName="dateOfBirth"
+          ></ion-input>
+        </ion-item>
+        <ion-item class="borderGrey BR10 mb-1">
+          <ion-label [position]="editMode ? 'floating' : 'fixed'">Gender</ion-label>
+          <ion-label *ngIf="!editMode">{{this.dataProvider.user.gender}}</ion-label>
+          <ion-select *ngIf="editMode" value="male" formControlName="gender" multiple="false" placeholder="Select Gender">
+            <ion-select-option value="male">Male</ion-select-option>
+            <ion-select-option value="female">Female</ion-select-option>
+            <ion-select-option value="other">Other</ion-select-option>
+          </ion-select>
+        </ion-item>
+        <div
+          class="fixed bottom-0 mb-4 d-flex justify-content-center w-100"
+          *ngIf="editMode"
+        >
+          <ion-button
+            style="text-transform: none"
+            color="success"
+            type="submit"
+            class="nextButton"
+            >Save</ion-button
+          >
+        </div>
+      </form>
+      <div class="Lato500 fs-16 t-green py-3" *ngIf="!this.editMode" (click)="editMode=true">
+        Edit Profile
+      </div>
+    </div>
+  </ion-content>
+</div>

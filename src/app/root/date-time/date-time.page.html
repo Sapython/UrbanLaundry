@@ -1,0 +1,92 @@
+<div class="ion-page" id="main-content">
+  <app-header title="Date & Time"></app-header>
+  <div class="ion-page" id="main-content">
+    <ion-header>
+      <ion-toolbar>
+        <ion-buttons slot="start">
+          <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-title>Menu</ion-title>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content class="ion-padding">
+      <app-loading *ngIf="!dates"></app-loading>
+      <div class="Lato600 fs-24 t-green pt-2 pb-4">
+        When you want the delivery?
+      </div>
+      <div class="Lato500 t-black fs-16">Select Date</div>
+      <div class="w-100 my-3">
+        <swiper [config]="config" (slideChange)="onSlideChange()">
+          <ng-template swiperSlide *ngFor="let date of dates; let i = index">
+            <div
+              class="text-center fs-15 t-white BR10 p-3 w-100 Lato400"
+              (click)="this.chooseDate = date; setDate(date)"
+              [class]="date.checked ? 'bg-green t-white Lato400' : 'bg-lightGreen t-green Lato500 borderDarkGreen'"
+            >
+              <div>{{date.date | date}}</div>
+            </div>
+          </ng-template>
+        </swiper>
+      </div>
+
+      <div class="Lato500 t-black fs-16">Select Time</div>
+      <div class="w-100 my-3">
+        <swiper [config]="time" (slideChange)="onSlideChange()" [slidesPerView]="4">
+          <ng-template swiperSlide *ngFor="let date of filteredTimes;" >
+            <div
+              class="text-center fs-15 BR10 p-3 w-100"
+              [class]="date.checked ? 'bg-green t-white Lato400' : 'bg-lightGreen t-green Lato500 borderDarkGreen'"
+              (click)="setTime(date)"
+            >
+              <div>
+                {{date.start | date:'h:mm'}} - {{date.end | date:'h:mm'}}
+              </div>
+              <div class="py-1">{{date.end | date:'a'}}</div>
+            </div>
+          </ng-template>
+        </swiper>
+      </div>
+      <ng-container *ngIf="this.dataProvider.chooseService?.length">
+        <div class="Lato500 t-black fs-16 my-2">Price list</div>
+        <div class="priceTag">
+          <ion-segment
+            [value]="this.dataProvider.chooseService[0].name"
+            (ionChange)="switchedTab($event)"
+          >
+            <ion-segment-button
+              [value]="service.name"
+              *ngFor="let service of this.dataProvider.chooseService  "
+            >
+              <div>{{service.name}}</div>
+            </ion-segment-button>
+          </ion-segment>
+        </div>
+        <ion-list *ngIf="currentService?.type == null">
+          <ion-item *ngFor="let item of currentService?.clothes">
+            <div class="w-100">{{item.name}}</div>
+            <div class="w-20">Rs {{item.cost}}</div>
+          </ion-item>
+        </ion-list>
+        <ion-card *ngIf="currentService?.type == true">
+          <ion-card-content>
+            <div class="d-flex justify-content-between">
+              <div class="Lato500 t-black fs-16">Total</div>
+              <div class="Lato500 t-black fs-16">
+                Rs {{currentService?.costPerKg}}/kg
+              </div>
+            </div>
+          </ion-card-content>
+        </ion-card>
+      </ng-container>
+      <div class="fixed bottom-0 mb-4 d-flex justify-content-center w-100">
+        <ion-button
+          *ngIf="chooseDate && chooseTime"
+          class="nextButton"
+          color="success"
+          (click)="booking()"
+          >Confirm Booking</ion-button
+        >
+      </div>
+    </ion-content>
+  </div>
+</div>

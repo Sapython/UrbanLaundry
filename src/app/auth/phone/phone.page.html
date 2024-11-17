@@ -1,0 +1,30 @@
+<ion-content class=" uk-animation-fade">
+  <div class="Lato600 fs-18 text-center my-5 t-green">Continue with Phone</div>
+  <div class="img my-5">
+    <img src="assets/img/phone.svg" alt="" />
+  </div>
+  <div class="d-flex justify-content-center ">
+    <div class="w-75 text-center Lato400 fs-16 ">You will receive 6 Digit Code to verify next</div>
+  </div>
+
+  <form [formGroup]="phoneLoginForm" (ngSubmit)="loginInWithPhoneNumber()">
+    <ion-grid class="container">
+      <ion-row class="cont1">
+        <ion-col>
+          <ion-text class="title">Enter Your Phone</ion-text>
+          <ion-input placeholder="Enter your Phone Number" formControlName="phoneNumber" type="text" class="text-center"
+            inputmode="numeric"></ion-input>
+          <div id="recaptcha-container"></div>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-button class="ion-margin" color="secondary" expand="block" type="submit">
+            Continue
+          </ion-button>
+        </ion-col>
+      </ion-row>
+      
+    </ion-grid>
+  </form>
+</ion-content>

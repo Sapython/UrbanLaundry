@@ -1,0 +1,17 @@
+<ion-content class="uk-animation-fade">
+  <ion-grid class="container">
+    <div class="Lato600 fs-18 text-center my-5 t-green">Verify OTP</div>
+    <img src="assets/img/otp-logo.png" alt="" />
+    <div class="Lato400 fs-16 text-center my-3">Code is sent to {{this.dataProvider.user?.phone}}</div>
+    <form [formGroup]="otpForm" (ngSubmit)="otpVerify()">
+      <div class="ip">
+        <ion-item>
+          <!-- <ion-label position="floating">OTP</ion-label> -->
+          <ion-input formControlName="otp" style="text-align: center;"  type="text" inputmode="numeric" placeholder="OTP"></ion-input>
+        </ion-item>
+      </div> 
+      <div class="Lato400 fs-16 text-center my-3">Don't receive the Code? <span class="t-green" routerDirection="back" routerLink="../phone">Resend OTP</span></div>
+      <ion-button class="login-button ion-margin" color="--primary-contrast" expand="block" type="submit">Continue</ion-button>
+    </form>
+  </ion-grid>
+</ion-content>

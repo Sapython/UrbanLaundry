@@ -1,0 +1,133 @@
+/*
+ * App Global CSS
+ * ----------------------------------------------------------------------------
+ * Put style rules here that you want to apply globally. These styles are for
+ * the entire app and not just one component. Additionally, this file can be
+ * used as an entry point to import other CSS/Sass files to be included in the
+ * output CSS.
+ * For more information on global stylesheets, visit the documentation:
+ * https://ionicframework.com/docs/layout/global-stylesheets
+ */
+
+/* Core CSS required for Ionic components to work properly */
+@import "~@ionic/angular/css/core.css";
+
+/* Basic CSS for apps built with Ionic */
+@import "~@ionic/angular/css/normalize.css";
+@import "~@ionic/angular/css/structure.css";
+@import "~@ionic/angular/css/typography.css";
+@import '~@ionic/angular/css/display.css';
+
+/* Optional CSS utils that can be commented out */
+@import "~@ionic/angular/css/padding.css";
+@import "~@ionic/angular/css/float-elements.css";
+@import "~@ionic/angular/css/text-alignment.css";
+@import "~@ionic/angular/css/text-transformation.css";
+@import "~@ionic/angular/css/flex-utils.css";
+
+@import 'swiper/scss';
+@import 'swiper/scss/navigation';
+@import 'swiper/scss/pagination';
+
+
+@import url('./assets/scss/Fonts.scss');
+@import url('./assets/scss/Responsive.scss');
+@import url('./assets/scss/Text.scss');
+@import url('./assets/scss/background.scss');
+
+:host(.button-block) .button-native {
+  margin-left: 0px;
+  margin-right: 0px;
+  display: block;
+  width: 100%;
+  clear: both;
+  contain: content;
+  border-radius: 1rem;
+  font-family: 'Lato', sans-serif;
+}
+
+:root label {
+  font-size: 14px !important;
+}
+
+ion-button {
+  --border-radius: 8px;
+}
+
+
+.removeShadow {
+  --box-shadow: none !important;
+}
+
+.icon-outer {
+  width: 36px;
+  height: 36px;
+  min-width: 36px;
+  max-width: 36px;
+  min-height: 36px;
+  max-height: 36px;
+  object-fit: cover;
+  background: #FFFFFF;
+  border: 0.5px solid rgba(87, 149, 64, 0.4);
+  border-radius: 6px;
+  object-fit: cover;
+  margin-left: 10px;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    padding: 6px;
+  }
+
+}
+
+.badge {
+  font-size: 11px;
+  background: #0A4A28;
+  color: #FFF;
+  width: 18px;
+  text-align: center;
+  border-radius: 50%;
+  padding: 2px;
+  position: absolute;
+}
+::ng-deep{
+  .popover-content{
+    --width: 80%;
+    position: absolute;
+    max-height: 750px;
+    transform: translate(5%, -20%);
+    
+  }
+}
+.terms-popover {
+  --width: 80%;
+  position: absolute;
+  max-height: 750px;
+  transform: translate(5%, -20%);
+}
+
+ion-backdrop {
+  height: 200vh !important;
+    width: -120vh !important;
+    margin-left: -50px !important;
+}
+.toast{
+  z-index: 9999999 !important;
+}
+@keyframes popIn {
+  0% {
+      opacity: 0;
+      scale: 0.6;
+      transform: translateY(-10px);
+  }
+  100% {
+      opacity: 1;
+      scale: 1;
+      transform: translateY(0);
+  }
+}
+.animatePopIn{
+  animation: popIn 0.5s cubic-bezier(0.33, 1, 0.68, 1);;
+}

@@ -1,0 +1,91 @@
+
+<div class="m-3 borderGrey BR10 animatePopIn" *ngIf="(booking?.stage?.stage != 'pending') && (booking?.stage?.stage != 'pickupAssigned') "   >
+  <div class="d-flex justify-content-between align-items-center Lato500 fs-13 p-2">
+    <div>
+      <div>Time Slot</div>
+      <div class="Lato600 pt-1 fs-13">{{booking?.slot?.startTime?.toDate() | date:'short'}} - {{booking?.slot?.endTime?.toDate() | date:'short'}}</div>
+    </div>
+    <div>
+      <ion-chip *ngIf="booking?.stage?.stage == 'pickupAssigned'" color="danger" class="Lato500 fs-13">Agent Come Soon</ion-chip>
+      <ion-chip *ngIf="booking?.stage?.stage != 'pickupAssigned'" color="danger" class="Lato500 fs-13">
+        <span *ngIf="booking?.recount == true">Recount</span>
+        <span *ngIf="booking?.recount == false || booking?.recount == null">{{breakWordOnCase(booking?.stage?.stage || '') | titlecase}}</span>
+      </ion-chip>
+    </div>
+  </div>
+  <div class="border d-flex justify-content-between align-items-center p-2">
+    <div class="d-flex align-items-center w-100" *ngIf="booking" (click)="toUrl('root/booking-status/'+booking?.id)">
+      <div class="img-outer">
+        <img src="assets/icon/bookings.png" alt="">
+      </div>
+      <div class="ps-2">
+        <div class="Lato600 fs-15 t-black">{{breakWordOnCase(booking?.stage?.stage || '') | titlecase}}</div>
+        <div class="Lato500 fs-13 t-grey mt-1">{{booking?.slot?.date?.toDate() | date}}</div>
+        <div class="Lato500 fs-13 t-grey mt-1">{{booking?.slot?.startTime?.toDate() | date:'h:mm a'}} -
+          {{booking?.slot?.endTime?.toDate() | date:'h:mm a'}}</div>
+      </div>
+    </div>
+    <div class="d-flex align-items-center" *ngIf="booking?.stage?.stage !='cancelled'">
+      <ion-icon color="success" name="create-outline" (click)="toUrl('root/date-time/'+booking?.id)"></ion-icon>
+      <ion-icon color="danger" name="trash-outline" (click)="toUrl('root/cancel-request/'+booking?.id)" routerLinkActive="router-link-active" ></ion-icon>
+    </div>
+  </div>
+  <div class="d-flex align-items-center py-3">
+    <div class="clothesList" *ngFor="let service of booking?.services">
+      <p><strong>&nbsp;&nbsp;&nbsp;{{service.name}}</strong></p>
+      <ion-chip color="primary" mode="ios" outline="true" *ngFor="let cloth of service.activeClothes">
+        <ion-label>{{cloth.count}} x {{cloth.name}}</ion-label>
+      </ion-chip>
+    </div>
+  </div>
+  <div class="d-flex align-items-center pt-1 pb-2 px-2">
+    <div class="Lato500 fs-13">Total weight: <b>{{booking?.totalWeight}} Kg</b></div>
+    <div class="Lato500 fs-13 ms-3">Total Item: <b>{{this.quantity}}</b></div>
+  </div>
+  <div class="border d-flex justify-content-between align-items-center Lato500 fs-13 p-2">
+    <div class="d-flex detail">
+      <div>Total</div>
+      <div class="Lato600 pt-1 fs-13" >{{booking?.billingDetail?.total | currency:'INR'}}</div>
+    </div>
+    <div class="d-flex detail">
+      <div>Delivery Mode</div>
+      <div class="Lato600 pt-1 fs-13">COD</div>
+    </div>
+  </div>
+  <div class="border d-flex justify-content-between align-items-center Lato500 fs-13 p-2">
+    <div class="d-flex detail">
+      <div>OTP</div>
+      <div class="Lato600 pt-1 fs-13" >{{booking?.otp}}</div>
+    </div>
+    <div class="d-flex detail">
+      <div>Id</div>
+      <div class="Lato600 pt-1 fs-13">{{booking?.id}}</div>
+    </div>
+  </div>
+  <!-- <div class="otpId"> <span class="otp"><strong>OTP:</strong>{{booking?.otp}}</span> <span class="id">#{{booking?.id}}</span></div> -->
+</div>
+
+
+<div class="m-3 borderGrey BR10 d-flex justify-content-between align-items-center py-3 px-2 animatePopIn" *ngIf="(booking?.stage?.stage == 'pending') || (booking?.stage?.stage =='pickupAssigned')">
+  <div class="d-flex align-items-center w-100" (click)="toUrl('root/booking-status/'+booking.id)">
+    <div class="img-outer">
+      <img src="assets/icon/bookings.png" alt="">
+    </div>
+    <div class="ps-2">
+      <div class="Lato600 fs-15 t-black">
+        <div class="Lato600 fs-15 t-black">{{breakWordOnCase(booking?.stage?.stage || '') | titlecase}}</div>
+      </div>
+      <div class="Lato500 fs-13 t-grey mt-1">{{booking?.slot?.date?.toDate() | date}}</div>
+      <div class="Lato500 fs-13 t-grey mt-1">{{booking?.slot?.startTime?.toDate() | date:'h:mm a'}} -
+        {{booking?.slot?.endTime?.toDate() | date:'h:mm a'}}</div>
+      <div class="otpId"> <span class="otp"><strong>OTP:</strong>{{booking?.otp}}</span> <span class="id">#{{booking?.id}}</span></div>
+    </div>
+  </div> 
+  <div class="d-flex justify-content-end align-items-center flex-column">
+    <div class="d-flex align-items-end" *ngIf="booking?.stage?.stage !='cancelled'">
+      <ion-icon color="success" (click)="toUrl('root/date-time/'+booking?.id)" name="calendar-outline" class="fs-22"></ion-icon>
+      <ion-icon color="danger" (click)="toUrl('root/cancel-request/'+booking?.id)" name="trash-outline" class="fs-22"></ion-icon>
+    </div>
+    <ion-chip color="danger" class="Lato500 fs-13 mt-2">{{breakWordOnCase(booking?.stage?.stage || '') | titlecase}}</ion-chip>
+  </div>
+</div>

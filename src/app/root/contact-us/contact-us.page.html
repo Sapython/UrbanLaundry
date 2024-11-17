@@ -1,0 +1,60 @@
+<div class="ion-page" id="main-content">
+  <app-header title="Contact US"></app-header>
+
+  <ion-content>
+    <div class="d-flex justify-content-between align-items-center my-3">
+      <ion-button
+        style="text-transform: none; --color: white !important"
+        color="success"
+        fill="outline"
+        size="medium"
+      >
+        <ion-icon name="call"></ion-icon>
+        <a
+          class="ps-2 t-green Lato500 fs-14 noUnderline"
+          [href]="'tel:' + this.dataProvider.appSettings?.contact?.phone"
+          >Toll Free</a
+        >
+      </ion-button>
+      <ion-button
+        style="text-transform: none; --color: white !important"
+        color="success"
+        fill="outline"
+      >
+        <ion-icon name="logo-whatsapp"></ion-icon>
+        <a
+          class="ps-2 t-green Lato500 fs-14 noUnderline"
+          [href]="'tel:' + this.dataProvider.appSettings?.contact?.whatsapp"
+          >WhatsApp</a
+        >
+      </ion-button>
+    </div>
+    <form action="" class="p-3 h-100" [formGroup]="contactUsForm" (ngSubmit)="contactUs()">
+      <ion-list>
+        <ion-item class="borderGrey BR10">
+          <ion-select interface="popover" placeholder="Query" class="w-100 d-flex justify-content-between" formControlName="type">
+            <ion-select-option value="query">Query</ion-select-option>
+            <ion-select-option value="complaint">Complaint</ion-select-option>
+            <ion-select-option value="feedback">Feedback</ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-list>
+      <ion-item class="borderGrey BR10">
+        <ion-textarea placeholder="Type here..." [autoGrow]="true" value="" rows="5" formControlName="description">
+        </ion-textarea>
+      </ion-item>
+      <div>
+        <ngx-dropzone (change)="onSelect($event)">
+          <input hidden type="file" placeholder="Upload Image"><span class="Lato400 fs-14 ms-3">Upload Images</span>
+        </ngx-dropzone>
+      </div>
+
+      <div class="d-flex justify-content-start">
+        <ngx-dropzone-image-preview ngProjectAs="ngx-dropzone-preview"  *ngFor="let f of files" [file]="f" [removable]="true" (removed)="onRemove(f)"></ngx-dropzone-image-preview>
+      </div>
+      <div class="fixed bottom-0 mb-4 d-flex justify-content-center w-100">
+        <ion-button (click)="contactUs()" color="success" style="text-transform:none; --color: white !important;">Submit</ion-button>
+      </div>
+    </form>
+  </ion-content>
+</div>

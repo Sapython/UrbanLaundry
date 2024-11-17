@@ -1,0 +1,16 @@
+<div class="ion-page" id="main-content">
+  <app-header title="Cancel Request"></app-header>
+  
+  <ion-content class="ion-padding">
+   <div class="Lato500 fs-16 m-3">Could you please let us know the reason for cancellation?</div>
+   <ion-radio-group (ionChange)="setVal($event)">
+    <ion-item *ngFor="let item of reasons">
+      <ion-radio color="success" [value]="item.title" slot="start"></ion-radio>
+      <ion-label>{{item.title}}</ion-label>
+    </ion-item>
+   </ion-radio-group>
+   <div class="fixed bottom-0 mb-4 d-flex justify-content-center w-100">
+    <ion-button color="success" (click)="submit()">Submit</ion-button>
+  </div>
+  </ion-content>
+</div>

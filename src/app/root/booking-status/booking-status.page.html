@@ -1,0 +1,141 @@
+<div class="ion-page" id="main-content">
+  <app-header title="Booking Details"></app-header>
+  <ion-content>
+    <app-loading *ngIf="!currentBookingData"></app-loading>
+    <div class="borderGrey d-flex align-items-center  BR10  py-2 px-2 m-3">
+      <div>
+        <div class="t-black Lato500 fs-13">Share OTP When Delivery boy come to pickup your clothes</div>
+        <div class="t-black Lato600 fs-15 mt-2">{{currentBookingData?.otp}}</div>
+      </div>
+      <div class="outer-img">
+        <img src="assets/images/otp.png" alt="">
+      </div>
+    </div>
+
+    <div class="borderGrey BR10 py-2 px-2 m-3">
+      <div class="d-flex justify-content-between align-items-center">
+        <div class="d-flex align-items-center">
+          <!-- <ion-icon name="pricetags-outline" class="fs-13"></ion-icon> -->
+          <div class="fs-13 Lato500">Order ID</div>
+        </div>
+        <div class="fs-13 Lato500">{{id | slice:0:6}}</div>
+      </div>
+      <div class="d-flex justify-content-between align-items-center pt-2">
+        <div class="d-flex  align-items-center">
+          <!-- <ion-icon name="calendar-outline" class="fs-13"></ion-icon> -->
+          <div class="fs-13 Lato500">Placed on</div>
+        </div>
+        <div class="fs-13 Lato500">{{currentBookingData?.slot?.date?.toDate() | date}}</div>
+      </div>
+      <div class="d-flex justify-content-between align-items-center pt-2" *ngIf="currentBookingData?.stage?.stage == 'cancelled'">
+        <div class="d-flex  align-items-center">
+          <!-- <ion-icon name="calendar-outline" class="fs-13"></ion-icon> -->
+          <div class="fs-13 Lato500">Cancel Reason</div>
+        </div>
+        <div class="fs-13 Lato500">{{currentBookingData?.stage?.message}}</div>
+      </div>
+    </div>
+    <app-booking-card [booking]="currentBookingData" ></app-booking-card>
+    <ion-item *ngIf="currentBookingData?.stage?.stage == 'cancelled'">
+      
+    </ion-item>
+    <div class="d-flex justify-content-end mx-3" *ngIf="bookingStatuses.indexOf(currentBookingData?.stage?.stage || '') > 5 && currentBookingData?.stage?.stage!='cancelled'">
+      <ion-button fill="outline" color="success" (click)="downloadInvoice()" size="small" style="text-transform:none" class="Lato500">
+        <!-- <ion-icon name="download-outline"></ion-icon> -->
+        <span>Download Invoice</span>  
+      </ion-button>
+    </div>
+
+    <div *ngIf="currentBookingData">
+      <div class="wrapper ms-2">
+        <ul class="StepProgress">
+          <li class="StepProgress-item " [class]="(currentBookingData?.stage?.stage == 'pending') ? 'is-done' : 'current'">
+            <strong>Pending</strong>
+            <span>
+              <div class="Lato500 fs-13 t-grey mt-1">{{currentBookingData?.slot?.date?.toDate() | date}}</div>
+              <div class="Lato500 fs-13 t-grey mt-1">{{currentBookingData?.slot?.startTime?.toDate() | date:'h:mm a'}} -
+                {{currentBookingData?.slot?.endTime?.toDate() | date:'h:mm a'}}</div>
+            </span>
+          </li>
+        
+          <li class="StepProgress-item " [class]="(currentBookingData?.stage?.stage == 'pickupAssigned') ? 'is-done' : 'current'">
+            <strong>Agent will come soon</strong>
+            <span *ngIf="currentBookingData?.pickupAgentId">
+              <div class="Lato500 fs-13 t-grey mt-1">Agent : {{agent?.displayName}}</div>
+              <div class="Lato500 fs-13 t-grey mt-1">Phone : {{agent?.phone}}</div>
+            </span>
+          </li>
+          <li class="StepProgress-item " [class]="(currentBookingData?.stage?.stage == 'pickupStarted') ? 'is-done' : 'current'">
+            <strong>Clothes pickup started</strong>
+          </li>
+          <li class="StepProgress-item " [class]="(currentBookingData?.stage?.stage == 'pickupReceived') ? 'is-done' : 'current'">
+            <strong>Clothes Received by Agent</strong>
+          </li>
+          <li class="StepProgress-item " [class]="(currentBookingData?.stage?.stage == 'pickupCompleted') ? 'is-done' : 'current'">
+            <strong>In Progress</strong>
+          </li>
+          <li class="StepProgress-item " [class]="(currentBookingData?.stage?.stage == 'washInProgress') ? 'is-done' : 'current'">
+            <strong>Wash In-Progress</strong>
+          </li>
+          <li class="StepProgress-item " [class]="(currentBookingData?.stage?.stage == 'washCompleted') ? 'is-done' : 'current'">
+            <strong>Washing Completed</strong>
+          </li>
+          <li class="StepProgress-item " [class]="(currentBookingData?.stage?.stage == 'deliveryAssigned') ? 'is-done' : 'current'">
+            <strong>Agent Will Coming Soon</strong>
+          </li>
+          <li class="StepProgress-item " [class]="(currentBookingData?.stage?.stage == 'outForDelivery') ? 'is-done' : 'current'">
+            <strong>Out for Delivery</strong>
+            <span *ngIf="currentBookingData?.deliveryAgentId">
+              <div class="Lato500 fs-13 t-grey mt-1">Agent : {{deliveryBoy?.displayName}}</div>
+              <div class="Lato500 fs-13 t-grey mt-1">Phone : {{deliveryBoy?.phone}}</div>
+            </span>
+          </li>
+          <li class="StepProgress-item " [class]="(currentBookingData?.stage?.stage == 'deliveryCompleted') ? 'is-done' : 'current'">
+            <strong>Delivered</strong>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- <div class="d-flex justify-content-end mx-3">
+      <ion-button  color="success" routerLink="../../rating" size="small" style="text-transform:none" class="Lato500">
+      <span>Rate Our Service</span>  
+      </ion-button>
+    </div> -->
+
+    <div  class="borderGrey BR10 py-2 m-3" *ngIf="currentBookingData?.stage?.stage != 'pending' && currentBookingData?.stage?.stage != 'pickupAssigned'">
+      <div class="Lato500 fs-15 px-2 pb-2">Shipping Details</div>
+      <div class="border"></div>
+      <div class="Lato500 fs-14 t-black pt-2 px-2">{{currentBookingData?.userDetails?.displayName}}</div>
+      <div class="Lato500 fs-14 t-black pt-2 px-2">{{this.dataProvider.user?.currentAddress?.address}}</div>
+      <div class="Lato500 fs-14 t-black pt-1 px-2">{{this.dataProvider.user?.currentAddress?.area?.name}}</div>
+
+      <div class="Lato500 fs-14 t-black py-2 px-2">{{this.dataProvider.user?.phone}}</div>
+    </div>
+
+    <div  class="borderGrey BR10 py-2 m-3" *ngIf="currentBookingData?.stage?.stage != 'pending' && currentBookingData?.stage?.stage != 'pickupAssigned'">
+      <div class="Lato500 fs-15 px-2 pb-2">Order Summary</div>
+      <div class="border"></div>
+      <ng-container *ngFor="let service of currentBookingData?.services">
+        <div class="Lato500 fs-14">&nbsp;&nbsp;&nbsp;<strong>{{ service.name}}</strong></div>
+        <div class="Lato500 fs-14 t-black pt-2 px-2 d-flex justify-content-between align-items-center" *ngFor="let cloths of service.activeClothes">
+          <div>{{cloths.name}} - {{cloths.count}}</div>
+          <div>{{cloths.cost | currency:'INR'}}</div>
+        </div>
+        <div class="border"></div>
+      </ng-container>
+      <div class="Lato500 fs-14 t-black pt-1 pb-2 px-2 d-flex justify-content-between align-items-center"><div>Delivery</div><div>Free</div></div>
+      <div class="Lato500 fs-14 t-black pt-1 pb-2 px-2 d-flex justify-content-between align-items-center"><div>Discount {{this.currentBookingData?.billingDetail?.discount+'%'}}</div><div>{{(this.currentBookingData.billingDetail.total/100)*(this.currentBookingData.billingDetail.discount || 0) | currency:'INR'}}</div></div>
+      <div class="Lato500 fs-14 t-black pt-1 pb-2 px-2 d-flex justify-content-between align-items-center"><div>Tax {{this.currentBookingData?.billingDetail?.tax+'%'}}</div><div>{{((this.currentBookingData.billingDetail.total-((this.currentBookingData.billingDetail.total/100)*this.currentBookingData.billingDetail.discount))/100)*this.currentBookingData.billingDetail.tax | currency:'INR'}}</div></div>
+      <div class="border"></div>
+      <div class="Lato500 fs-14 t-black pt-2 px-2 d-flex justify-content-between align-items-center"><div>Total Amount</div><div>{{currentBookingData?.billingDetail?.grandTotal | currency:'INR'}}</div></div>
+    </div>
+
+    
+    <div class=" mb-5 d-flex justify-content-center align-items-center w-100 ps-3" *ngIf="(currentBookingData?.stage?.stage != 'pending' && currentBookingData?.stage?.stage != 'pickupAssigned') && currentBookingData?.recount != false">
+      <ion-button fill="outline" color="success" (click)="recount(true)">Recount</ion-button>
+      <ion-button  color="success" (click)="recount(false)">Accept</ion-button>
+    </div>
+
+  </ion-content>
+</div>

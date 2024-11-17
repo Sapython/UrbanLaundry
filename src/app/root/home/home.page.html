@@ -1,0 +1,206 @@
+<ion-menu contentId="main-content" menuId="main" >
+  <ion-header></ion-header>
+  <ion-content class="m-2">
+    <!-- <div class="backGTwo"></div>
+    <div class="backGOne"></div> -->
+    <div
+      class="borderGrey d-flex justify-content-start align-items-center py-4"
+    >
+      <div class="img-outer-side ms-2">
+        <img
+          [src]="this.dataProvider.user?.photoURL"
+          referrerpolicy="no-referrer"
+          alt=""
+        />
+      </div>
+      <div class="ms-2">
+        <div class="Lato600 fs-18">{{this.dataProvider.user?.displayName}}</div>
+        <div class="Lato500 fs-13 my-1">{{this.dataProvider.user?.email}}</div>
+        <div class="Lato500 fs-13" routerDirection="forward" routerLink="../profile">
+          Edit & view Profile
+        </div>
+      </div>
+    </div>
+    <br>
+    <ion-menu-toggle>
+      <!-- <div
+        class="borderGrey BR10 mb-3 d-flex align-items-center justify-content-between p-2 mx-2 py-2 mt-5"
+        routerLink="../notifications"
+      >
+        <div class="d-flex align-items-center">
+          <div><ion-icon name="albums-outline"></ion-icon></div>
+          <div class="ms-3 Lato500 fs-14">Notification</div>
+        </div>
+        <div><ion-icon name="chevron-forward-outline"></ion-icon></div>
+      </div> -->
+      
+      <div
+        class="borderGrey BR10 mb-3 d-flex align-items-center justify-content-between p-2 mx-2 py-2"
+        routerLink="../bookings"
+      >
+        <div class="d-flex align-items-center">
+          <div><ion-icon name="bookmarks-outline"></ion-icon></div>
+          <div class="ms-3 Lato500 fs-14">My Bookings</div>
+        </div>
+        <div><ion-icon name="chevron-forward-outline"></ion-icon></div>
+      </div>
+      <div
+        class="borderGrey BR10 mb-3 d-flex align-items-center justify-content-between p-2 mx-2 py-2"
+        routerLink="../contact-us"
+      >
+        <div class="d-flex align-items-center">
+          <div><ion-icon name="call-outline"></ion-icon></div>
+          <div class="ms-3 Lato500 fs-14">Contact Us</div>
+        </div>
+        <div><ion-icon name="chevron-forward-outline"></ion-icon></div>
+      </div>
+      <!-- <div
+        class="borderGrey BR10 mb-3 d-flex align-items-center justify-content-between p-2 mx-2 py-2"
+        routerLink="../settings"
+      >
+        <div class="d-flex align-items-center">
+          <div><ion-icon name="settings-outline"></ion-icon></div>
+          <div class="ms-3 Lato500 fs-14">Settings</div>
+        </div>
+        <div><ion-icon name="chevron-forward-outline"></ion-icon></div>
+      </div> -->
+    </ion-menu-toggle>
+    <ion-menu-toggle>
+      <div class="fixed bottom-0 mb-5 d-flex justify-content-center w-100">
+        <ion-button
+          style="text-transform: none; --color: white !important"
+          color="success"
+          fill="outline"
+          (click)="canDisMiss()"
+        >
+          <ion-icon name="log-out-sharp"></ion-icon>
+          <span class="ms-2">Log out</span>
+        </ion-button>
+      </div>
+    </ion-menu-toggle>
+  </ion-content>
+</ion-menu>
+<ion-list class="ion-page" id="main-content">
+  <app-header></app-header>
+  <ion-content class="ion-padding">
+    <!-- <div class="Lato400 fs-18 px-3">Good Morning Vivek</div>
+    <div class="Lato600 fs-24 t-green pt-2 pb-4 px-3">Find Your nearest laundry</div> -->
+    <!-- <app-notification-popup></app-notification-popup> -->
+    <div
+      class="d-flex align-items-center bg-green px-2 py-3 rounded BR10 mt-3 address"
+      routerLink="../pick-up-address"
+    >
+      <div>
+        <img src="assets/icon/location.png" alt="" />
+      </div>
+      <div class="t-white ps-2 w-100">
+        <div class="fs-13 Lato400">Your location</div>
+        <div
+          class="fs-14 Lato600 pt-1 d-flex justify-content-between align-items-center"
+        >
+          <div>{{this.dataProvider.user?.currentAddress?.address}}</div>
+        </div>
+      </div>
+      <div class="fs-16 Lato600 pt-1 ps-2 whiteLogo">
+        <ion-icon name="chevron-down-sharp"></ion-icon>
+      </div>
+    </div>
+
+    <div class="w-100 my-3">
+      <swiper
+        [config]="config"
+        [pagination]="true"
+        (slideChange)="onSlideChange()"
+        class="mySwiper"
+      >
+      <ng-container *ngFor="let banner of bannersData">
+        <ng-template swiperSlide *ngIf="showBanner(banner.startDate,banner.endDate)"
+          ><img (click)="actionOnBanner(banner)" class="w-100" [src]="banner.bannerImage" alt=""
+        /></ng-template>
+      </ng-container>
+      </swiper>
+    </div>
+
+    <div class="callToActionButtons">
+      <ion-button
+        style="text-transform: none; --color: white !important"
+        color="success"
+        fill="outline"
+        [href]="'tel:' + this.dataProvider.appSettings?.contact?.phone"
+        size="medium"
+      >
+        <ion-icon name="call"></ion-icon>
+        Toll Free
+      </ion-button>
+      <ion-button
+        style="text-transform: none; --color: white !important"
+        color="success"
+        (click)="openWhatsapp()"
+        fill="outline"
+      >
+        <ion-icon name="logo-whatsapp"></ion-icon>
+        WhatsApp
+      </ion-button>
+    </div>
+
+    <div *ngFor="let booking of activeOrders" routerLink="../booking-status/{{booking.id}}"
+      class="borderGrey d-flex justify-content-between align-items-center py-2 px-2 BR10 my-2 mb-4 animatePopIn"
+    >
+      <div class="d-flex align-items-center w-100">
+        <div class="img-outer-current">
+          <img src="assets/icon/bookings.png" alt="" />
+        </div>
+        <div class="ps-2">
+          <div class="Lato600 fs-15 t-black">{{booking.services | serviceName}}</div>
+          <div class="Lato500 fs-13 t-grey my-2">{{booking.slot.date.toDate() | date}} <strong>&nbsp;&nbsp;&nbsp;#{{booking.id}}</strong></div>
+          <div class="Lato500 fs-13 t-grey mt-1">{{booking.slot.startTime.toDate() | date:'shortTime'}} - {{booking.slot.endTime.toDate() | date:'shortTime'}}</div>
+        </div>
+      </div>
+      <div>
+        <div>
+          <ion-chip color="danger" class="Lato500 fs-13">{{booking.stage.stage | titlecase}}</ion-chip>
+        </div>
+        <div class="Lato600 fs-15 t-grey my-1 text-center" *ngIf="booking.billingDetail.grandTotal">Rs {{booking.billingDetail.grandTotal || 'N/A'}}</div>
+        <!-- <div class="d-flex align-items-center">
+          <ion-icon color="success" routerLink="../date-time" [queryParams]="{'edit':booking.id}" name="create-outline"></ion-icon>
+          <ion-icon color="danger" name="trash-outline"></ion-icon>
+        </div> -->
+      </div>
+    </div>
+    <!-- <button routerLink="../booking-details/ORD1" >Move to details</button> -->
+    <!-- <div>Latitude: {{display?.lat}}</div>
+    <div>Longitude: {{display?.lng}}</div> -->
+    <div class="Lato600 fs-22 t-green">Services</div>
+    <div
+      class="d-flex justify-content-between align-items-center flex-wrap pt-2 pb-5"
+    >
+      <div
+        class="card mb-3"
+        (click)="service.active = !service.active"
+        *ngFor="let service of services;"
+        [class]="service.active ? 'cardActive' : 'card'"
+      >
+        <div class="img-outer">
+          <img class="w-100" [src]="service.image" alt="" />
+        </div>
+        <div class="fs-14 Lato500 pt-2 t-back text-center">
+          {{service.name}}
+        </div>
+      </div>
+    </div>
+    <div
+      class="fixed bottom-0 mb-5 pb-2 d-flex justify-content-center w-100"
+      *ngIf="isServiceActive"
+    >
+      <ion-button
+        style="text-transform: none; --color: white !important"
+        class="nextButton"
+        color="success"
+
+        (click)="next()"
+        >Schedule Pickup</ion-button
+      >
+    </div>
+  </ion-content>
+  <!-- <app-footer></app-footer> -->
+</ion-list>

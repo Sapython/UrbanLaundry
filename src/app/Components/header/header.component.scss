@@ -1,0 +1,42 @@
+.back {
+    ion-button {
+        background: #EFFFEA;
+        box-shadow: 0px 2px 6px 1px rgba(22, 22, 22, 0.1);
+        border-radius: 10px;
+        color: white;
+    }
+     ion-icon{
+        color: black;
+        font-weight: 600;
+    }
+    
+} 
+ion-title{
+    --color: #00421F;
+    font-size: 17px;
+    font-weight: 600;
+    font-family: 'Lato', sans-serif;
+}
+
+.avatar{
+    width: 30px;
+    height: 30px;
+    object-fit: cover;
+    border-radius: 50% !important;
+    img{
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 50% !important;
+    }
+}
+.ulTitle{
+    text-align: center;
+    color:#579540;
+    font-size: 24px;
+    .title{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+}

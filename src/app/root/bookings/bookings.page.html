@@ -1,0 +1,16 @@
+<app-header title="Bookings"></app-header>
+<ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+  <h4 class="mx-3">Active Bookings</h4>
+  <app-loading *ngIf="!bookings"></app-loading>
+  <ion-list>
+    <app-booking-card [booking]="booking" *ngFor="let booking of bookings" routerLink="../booking-status/{{booking.id}}"></app-booking-card>
+    <img src="assets/notFound.svg" class="center" alt="" *ngIf="bookings.length==0">
+    <h3 class="center" style="text-align: center;" *ngIf="bookings.length==0">No booking found.</h3>
+    <ion-infinite-scroll (ionInfinite)="loadMore($event)">
+      <ion-infinite-scroll-content></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+  </ion-list>
+</ion-content>

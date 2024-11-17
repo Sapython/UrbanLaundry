@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">UrbanLaundry</string>
+    <string name="title_activity_main">UrbanLaundry</string>
+    <string name="package_name">com.shreeva.urbanlaundry</string>
+    <string name="custom_url_scheme">com.shreeva.urbanlaundry</string>
+    <string name="server_client_id">461704917744-okgeube23vb6rpg6puv9ah3arfa6uphp.apps.googleusercontent.com</string>
+</resources>

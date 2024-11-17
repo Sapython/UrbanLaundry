@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "urbanlaundryadmin": {
+      "hosting": {
+        "app": [
+          "urbanlaundryadmin"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "urbanlaundryadmin"
+  }
+}

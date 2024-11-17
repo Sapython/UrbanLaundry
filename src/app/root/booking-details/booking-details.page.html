@@ -1,0 +1,33 @@
+<section *ngIf="animating">
+  <!-- <video src="assets/animations/bookingDone.mp4" preload="auto" autoplay></video> -->
+  <ng-lottie [options]="options" (loopComplete)="animationComplete($event)" (animationCreated)="animationCreated($event)"></ng-lottie>
+</section>
+<div class="ion-page" id="main-content"  *ngIf="!animating">
+  <app-loading *ngIf="!currentBookingData"></app-loading>
+  <ion-content class="ion-padding">
+    
+    <div class="borderGrey  d-flex align-items-center w-100 BR10 flex-column p-4">
+      <div class="outer-img">
+        <img src="assets/images/bookingDetails2.png" alt="">
+      </div>
+      <div class="d-flex align-items-center my-4">
+        <!-- <ion-icon name="hourglass-outline" color="success" class="fs-22"></ion-icon> -->
+        <span class="t-green Lato600 text-center fs-16">Waiting for confirmation from agent</span>
+      </div>
+      <!-- <div class="t-grey Lato600 fs-16 text-center">Our {{currentBookingData?.services}} Expert Will Be On His Way Soon!</div> -->
+      <div class="t-black Lato600 fs-14 mt-3">{{currentBookingData?.slot?.date.toDate() | date }}</div>
+      <div class="t-black Lato600 fs-14 mt-2">{{currentBookingData?.slot?.startTime.toDate() | date:'h:mm a'}} - {{currentBookingData?.slot?.endTime.toDate() | date:'h:mm a'}}</div>
+      <div class="t-black Lato500 fs-14 mt-4">Order No - {{id | slice:0:6}}</div>
+      <div class="d-flex justify-content-center mt-4 align-items-center w-100">
+        <ion-button fill="outline" color="success" routerLink="../../cancel-request/{{id}}">Cancel</ion-button>
+        <ion-button color="success" routerLink="../../bookings">My Orders</ion-button>
+      </div>
+    </div>
+
+    <div class="fixed bottom-0 mb-5 d-flex justify-content-between align-items-center flex-column w-100">
+      <ion-button fill="outline" color="success" routerLink="../../date-time/{{id}}">Reschedule</ion-button>
+      <div class="t-green Lato600 text-center fs-16 mt-2" routerLink="../../home">Back to Home</div>
+    </div>
+    
+  </ion-content>
+</div>

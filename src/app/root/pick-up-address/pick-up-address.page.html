@@ -1,0 +1,104 @@
+<div class="ion-page" id="main-content">
+  <app-header title="Pickup Address"></app-header>
+  <div class="ion-page" id="main-content">
+    <ion-header>
+      <ion-toolbar>
+        <ion-buttons slot="start">
+          <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-title>Menu</ion-title>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content class="ion-padding">
+      <app-loading *ngIf="!this.dataProvider.user"></app-loading>
+      <div class="d-flex align-items-center bg-green px-2 py-3 rounded BR10">
+        <div>
+          <img src="assets/icon/location.png" alt="" />
+        </div>
+        <div class="t-white ps-2">
+          <div class="fs-13 Lato400">Your location</div>
+          <div class="fs-16 Lato600 pt-1">
+            {{this.dataProvider.user?.currentAddress?.address}}
+          </div>
+        </div>
+      </div>
+      <form
+        class="w-100 px-1 mt-3"
+        [formGroup]="addressForm"
+        (ngSubmit)="pickupAddress()"
+      >
+        <ion-item class="borderGrey BR10 mb-3">
+          <ion-input
+            placeholder="Full Name"
+            formControlName="displayName"
+          ></ion-input>
+        </ion-item>
+        <ion-item class="borderGrey BR10 mb-3">
+          <ion-input
+            placeholder="House/Flat/Block/Building"
+            formControlName="address"
+          ></ion-input>
+        </ion-item>
+        <ion-item class="borderGrey BR10 mb-3">
+          <ion-input
+            placeholder="Street, Society or Landmark"
+            formControlName="nearBy"
+          ></ion-input>
+        </ion-item>
+        <ion-item class="borderGrey BR10 mb-3">
+          <ion-label>Area</ion-label>
+          <ion-select
+            multiple="false"
+            formControlName="area"
+            [value]="this.dataProvider.user?.currentAddress?.area?.id"
+            placeholder="Select Area"
+          >
+            <ion-select-option *ngFor="let area of areas" [value]="area.id"
+              >{{area.name}}</ion-select-option
+            >
+          </ion-select>
+        </ion-item>
+        <ion-item class="borderGrey BR10 mb-3">
+          <ion-input
+            placeholder="Pincode"
+            formControlName="pincode"
+          ></ion-input>
+        </ion-item>
+        <div class="fixed bottom-0 mb-4 d-flex justify-content-center w-100">
+          <button type="submit" hidden  #submitBtn >Save</button>
+        </div>
+      </form>
+      <ion-chip color="danger" mode="ios" *ngIf="locationNotFound">
+        Location is not enabled on your device. Please enable it to continue.
+      </ion-chip>
+      <div class="Lato600 fs-24 t-green pt-2 pb-4 ms-1">
+        Choose Your Location <ion-icon color="success" slot="end" name="help-outline" (click)="information()"></ion-icon>
+      </div>
+      <p>
+        Click on any area to select it on map.
+      </p>
+      <google-map
+        height="300px"
+        width="90vw"
+        [center]="center"
+        [zoom]="zoom"
+        [options]="mapOptions"
+        (mapClick)="moveMap($event)"
+      >
+        <map-marker
+          *ngIf="currentPosition"
+          [options]="markerOptions"
+          [position]="currentPosition"
+        ></map-marker>
+        <map-marker
+          *ngIf="currentPosition"
+          [options]="centerMarkerOptions"
+          [position]="center"
+        ></map-marker>
+      </google-map>
+    </ion-content>
+    <ion-button (click)="submitBtn.click()" color="success" expand="block" fill="solid" shape="round">
+      Submit
+    </ion-button>
+  </div>
+</div>
